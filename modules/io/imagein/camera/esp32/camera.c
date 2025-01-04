@@ -336,6 +336,7 @@ void xs_camera_constructor(xsMachine *the)
 	Camera camera;
 	int imageType = kCommodettoBitmapRGB565LE;
 	uint8_t isJPEG = 0;
+	uint32_t xclock = 24000000;
 
 	xsmcVars(1);
 
@@ -362,6 +363,11 @@ void xs_camera_constructor(xsMachine *the)
 		else
 			imageType = xsmcToInteger(xsVar(0));
 	}
+	if (xsmcHas(xsArg(0), xsID_xclock)) {
+                xsmcGet(xsVar(0), xsArg(0), xsID_xclock);
+                xclock = xsmcToInteger(xsVar(0));
+		camera_config.xclk_freq_hz = xclock;
+        }
 
 	camera = c_calloc(1, sizeof(CameraRecord));
 	if (!camera)
