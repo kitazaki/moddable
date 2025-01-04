@@ -18,11 +18,13 @@ import Camera from "embedded:x-io/imagein/camera";
 import Net from "net";
 
 let width = 176, height = 144;
+let xclock = 20000000;
 let frame;
 
 const camera = new Camera({
 	width,
 	height,
+	xclock,
 	imageType: "jpeg",
 	format: "buffer/disposable",
 	onReadable: () => {
